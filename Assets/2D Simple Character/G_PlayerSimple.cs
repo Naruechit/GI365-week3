@@ -74,7 +74,7 @@ public class G_PlayerSimple : MonoBehaviour // ***** ต้นฉบับได
         if (isWalled) // wallSlide
         {
             isJumping = false;
-            isWallJumping = false;
+            isWallJumping = false;//
             canDoubleJump = false;
 
             if (isGrounded)
