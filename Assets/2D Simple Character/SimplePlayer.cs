@@ -54,7 +54,7 @@ public class SimplePlayer : MonoBehaviour
     {
         if (!isGrounded && !isJumping)// take off
         {
-            isJumping = true;
+            isJumping = true;// ?
 
             if (rigid.linearVelocityY <= 0f)
             { 
