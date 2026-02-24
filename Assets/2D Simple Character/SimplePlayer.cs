@@ -4,6 +4,8 @@ public class SimplePlayer : MonoBehaviour
 {
     private Rigidbody2D rigid;
     private Animator anim;
+    private ParticleSystem grassPar;
+    private ParticleSystem.EmissionModule emission;
 
     [Header("Ground And Wall Check")]
     [SerializeField] private float groundDiskCheck = 1f;
@@ -34,6 +36,8 @@ public class SimplePlayer : MonoBehaviour
     {
         anim = GetComponentInChildren<Animator>();
         rigid = GetComponent<Rigidbody2D>();
+        grassPar = GetComponentInChildren<ParticleSystem>();
+        emission = grassPar.emission;
     }
     private void Update()
     {
@@ -50,6 +54,8 @@ public class SimplePlayer : MonoBehaviour
     {
         if (!isGrounded && !isJumping)// take off
         {
+            isJumping = true;
+
             if (rigid.linearVelocityY <= 0f)
             { 
                 coyoteTime = Time.time;//
@@ -177,7 +183,7 @@ public class SimplePlayer : MonoBehaviour
         if (rigid.linearVelocityX > 0.1f)
         {
             facing = -1;// face opposite wall
-            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            transform.rotation = Quaternion.identity;
         }
         
         if (rigid.linearVelocityX < -0.1f)
@@ -201,6 +207,11 @@ public class SimplePlayer : MonoBehaviour
     }
     private void Animation()
     { 
-    
+        anim.SetBool("isGrounded", isGrounded);//decide to animate idle/run or jump
+        anim.SetBool("isWallSliding", isWallSliding);//decide to animate 
+        
+        anim.SetFloat("velX", rigid.linearVelocityX);//decide to animate run or idle
+        anim.SetFloat("velY", rigid.linearVelocityY);//decide to animate jump
+        emission.enabled = isGrounded;
     }
 }
