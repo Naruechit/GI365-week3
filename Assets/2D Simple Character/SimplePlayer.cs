@@ -142,15 +142,15 @@ public class SimplePlayer : MonoBehaviour
         if (!isWalled || isGrounded || isWallJumping || rigid.linearVelocityY > 0f)
             return;
 
-        //float Y_slide;
-        //if (Y_slide < 0f)
-        //{
-        //    Y_slide = 1f;
-        //}
-        //else
-        //{
-        //    Y_slide = .5f;
-        //}
+        // float Y_slide;
+        // if (Y_slide < 0f)
+        // {
+        //     Y_slide = 1f;
+        // }
+        // else
+        // {
+        //     Y_slide = .5f;
+        // }
         float Y_slide = Y_input < 0f ? 1f : .5f;//press s to fall faster 1 time
         rigid.linearVelocity = new Vector2(X_input * moveSpeed, rigid.linearVelocityY * Y_slide);
     }
@@ -194,7 +194,7 @@ public class SimplePlayer : MonoBehaviour
     }
     private void GroundAndWallCheck()
     {
-        //(¨Ø´àÃÔèÁ, ·ÔÈ, ¤ÇÒÁÂÒÇ, layer·Õè¨ĞËÒ)
+        //(Â¨Ã˜Â´Ã ÃƒÃ”Ã¨Ã, Â·Ã”Ãˆ, Â¤Ã‡Ã’ÃÃ‚Ã’Ã‡, layerÂ·Ã•Ã¨Â¨ÃÃ‹Ã’)
         isGrounded = Physics2D.Raycast(transform.position, Vector3.down, groundDiskCheck, groundLayer);
         isWalled = Physics2D.Raycast(transform.position, transform.right, wallDistcheck, groundLayer);
     }
@@ -208,7 +208,9 @@ public class SimplePlayer : MonoBehaviour
     private void Animation()
     { 
         anim.SetBool("isGrounded", isGrounded);//decide to animate idle/run or jump
-        anim.SetBool("isWallSliding", isWallSliding);//decide to animate 
+        anim.SetBool("isWallSliding", isWallSliding);//decide to animate
+        anim.SetBool("canDoubleJump", canDoubleJump);
+        anim.SetBool("isJumping", isJumping);
         
         anim.SetFloat("velX", rigid.linearVelocityX);//decide to animate run or idle
         anim.SetFloat("velY", rigid.linearVelocityY);//decide to animate jump
